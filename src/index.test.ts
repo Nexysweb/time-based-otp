@@ -12,3 +12,14 @@ describe('Time-based OTP', () => {
     expect(I.verifyTOTP(token, secret)).toEqual(true)
   })
 });
+
+/*
+this is a test to see if the integration actually wors with the google auth
+test('manual testing', () => {
+  //const secret  = I.generateSecret();
+  //console.log(secret)
+  const secret = 'YFA3UTGAGUPJEFQYNNR5VKBFU5GQ6H6O';
+  const t = 412587//92300
+
+  expect(I.verifyTOTP(t, secret)).toEqual(true)
+})*/

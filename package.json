@@ -1,8 +1,19 @@
 {
+  "name": "@nexys/timebasedotp",
+  "version": "0.0.1",
   "scripts": {
     "test": "jest",
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nexysweb/time-based-otp"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "dependencies": {
     "hi-base32": "^0.5.0"
   },

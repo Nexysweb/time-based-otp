@@ -1,6 +1,6 @@
 # Time-based OTP
 
-Typescript implementation of  https://hackernoon.com/how-to-implement-google-authenticator-two-factor-auth-in-javascript-091wy3vh3
+Typescript implementation of https://hackernoon.com/how-to-implement-google-authenticator-two-factor-auth-in-javascript-091wy3vh3
 
 see also https://github.com/enquirer/enquirer/pull/186
 
@@ -14,3 +14,7 @@ see also https://github.com/enquirer/enquirer/pull/186
 import * as TOTP from '@nexys/timebasedotp';
 console.log(TOTP)
 ```
+
+#### References
+
+https://freeotp.github.io/qrcode.html

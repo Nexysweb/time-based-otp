@@ -1,4 +1,4 @@
-export const secretFromUrl = (url: string) => {
+export const secretFromUrl = (url: string):string => {
   const m = url.match(/secret=([^&]+)/);
 
   if (!m || m.length < 2) {

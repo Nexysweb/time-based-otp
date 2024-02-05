@@ -3,6 +3,7 @@ import * as assert from "assert";
 
 import * as I from "./index.js";
 import { Algorithm } from "./type.js";
+import { toQRString } from "./utils.js";
 
 const l = 20;
 
@@ -36,10 +37,12 @@ algorithms.forEach((algorithm) => {
 test("manual testing", () => {
   //const secret = I.generateSecret();
 
-  const secret = "WENBV6U26A7HXMVBRXCIBU22JTLGUFRM"; // "YFA3UTGAGUPJEFQYNNR5VKBFU5GQ6H6O";
+  const algorithm = "SHA256";
 
-  console.log(I.toQRString("test", secret));
-  const t = 764975;
+  const secret = "4W7STBMRFAJ2JYCDM66ZBMT47YPY7DCM";
+  console.log(secret);
+  console.log(toQRString("test", secret, algorithm));
+  const t = 383566;
 
-  assert.strictEqual(I.verifyTOTP(t, secret), true);
+  assert.strictEqual(I.verifyTOTP(t, secret, algorithm), true);
 });*/

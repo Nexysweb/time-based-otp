@@ -1,5 +1,6 @@
 import * as Crypto from "crypto";
 import Base32 from "hi-base32";
+import { Algorithm } from "./type.js";
 
 export const generateSecret = (length: number = 20): string => {
   const randomBuffer = Crypto.randomBytes(length);
@@ -8,7 +9,11 @@ export const generateSecret = (length: number = 20): string => {
 
 export const decodeSecret = (secret: string) => Base32.decode.asBytes(secret);
 
-export const generateHOTP = (secret: string, counter: number): number => {
+export const generateHOTP = (
+  secret: string,
+  counter: number,
+  algorithm: Algorithm
+): number => {
   const decodedSecret = decodeSecret(secret);
   const buffer = Buffer.alloc(8);
 
@@ -18,7 +23,7 @@ export const generateHOTP = (secret: string, counter: number): number => {
   }
 
   //
-  const hmac = Crypto.createHmac("sha1", Buffer.from(decodedSecret));
+  const hmac = Crypto.createHmac(algorithm, Buffer.from(decodedSecret));
   hmac.update(buffer);
   const hmacResult: Buffer = hmac.digest();
 
@@ -38,33 +43,19 @@ const dynamicTruncationFn = (hmacValue: Buffer): number => {
   );
 };
 
-export const generateTOTP = (secret: string, window = 0): number => {
-  const counter = Math.floor(Date.now() / 30000);
-  return generateHOTP(secret, counter + window);
-};
-
-// https://freeotp.github.io/qrcode.html
-export const toQRString = (
-  name: string,
+export const generateTOTP = (
   secret: string,
-  algorithm: "SHA1" | "SHA224" | "SHA256" | "SHA384" | "SHA512" = "SHA256",
-  digits: number = 6,
-  period: number = 15
-) => {
-  const t = { secret, algorithm, digits, period };
-
-  const s: string = Object.entries(t)
-    .map(([k, v]) => {
-      return `${k}=${encodeURIComponent(v)}`;
-    })
-    .join("&");
-
-  return "otpauth://totp/" + name + "?" + s;
+  algorithm: Algorithm,
+  window = 0
+): number => {
+  const counter = Math.floor(Date.now() / 30000);
+  return generateHOTP(secret, counter + window, algorithm);
 };
 
 export const verifyTOTP = (
   token: number,
   secret: string,
+  algorithm: Algorithm,
   window: number = 1
 ): boolean => {
   if (Math.abs(+window) > 10) {
@@ -72,7 +63,7 @@ export const verifyTOTP = (
   }
 
   for (let errorWindow = -window; errorWindow <= +window; errorWindow++) {
-    const totp: number = generateTOTP(secret, errorWindow);
+    const totp: number = generateTOTP(secret, algorithm, errorWindow);
 
     if (token === totp) {
       return true;

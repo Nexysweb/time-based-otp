@@ -34,7 +34,7 @@ describe("Generated test suite", () => {
   // Test
   test("generateTOTP", (t) => {
     const secret = generateSecret();
-    const totp = generateTOTP(secret);
+    const totp = generateTOTP(secret, "SHA256");
     assert.strictEqual(typeof totp, "number", "TOTP should be a number");
     assert.strictEqual(
       totp >= 0 && totp < 1000000,
@@ -46,8 +46,8 @@ describe("Generated test suite", () => {
   // Test
   test("verifyTOTP", (t) => {
     const secret = generateSecret();
-    const totp = generateTOTP(secret);
-    const isVerified = verifyTOTP(totp, secret);
+    const totp = generateTOTP(secret, "SHA256");
+    const isVerified = verifyTOTP(totp, secret, "SHA256");
     assert.strictEqual(
       isVerified,
       true,

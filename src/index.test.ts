@@ -1,25 +1,33 @@
 import test, { describe } from "node:test";
 import * as assert from "assert";
 
-import * as I from "./index";
-describe("Time-based OTP", () => {
-  const l = 20;
-  const secret = I.generateSecret(l);
-  test("secret generation", () => {
-    assert.strictEqual(secret.length, 32);
+import * as I from "./index.js";
+import { Algorithm } from "./type.js";
+
+const l = 20;
+
+const algorithms: Algorithm[] = [
+  "SHA1",
+  "SHA224",
+  "SHA256",
+  "SHA384",
+  "SHA512",
+];
+
+algorithms.forEach((algorithm) => {
+  describe(`Testing TOTP for ${algorithm}`, () => {
+    const secret = I.generateSecret(l);
+
+    test("secret generation", () => {
+      assert.strictEqual(secret.length, 32);
+    });
+
+    const token = I.generateTOTP(secret, algorithm);
+
+    test("verify token", () => {
+      assert.strictEqual(I.verifyTOTP(token, secret, algorithm), true);
+    });
   });
-
-  const token = I.generateTOTP(secret);
-
-  test("verify token", () => {
-    assert.strictEqual(I.verifyTOTP(token, secret), true);
-  });
-});
-
-test("to QR string", () => {
-  const s =
-    "otpauth://totp/myname?secret=asecret&algorithm=SHA256&digits=6&period=15";
-  assert.strictEqual(I.toQRString("myname", "asecret"), s);
 });
 
 //this is a test to see if the integration actually wors with the google auth

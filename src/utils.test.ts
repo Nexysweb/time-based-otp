@@ -9,3 +9,9 @@ test("secretFromUrl", () => {
 
   assert.strictEqual(U.secretFromUrl(url), secret);
 });
+
+test("to QR string", () => {
+  const s =
+    "otpauth://totp/myname?secret=asecret&algorithm=SHA256&digits=6&period=15";
+  assert.strictEqual(U.toQRString("myname", "asecret"), s);
+});

@@ -1,22 +1,25 @@
+import test, { describe } from "node:test";
+import * as assert from "assert";
+
 import * as I from "./index";
 describe("Time-based OTP", () => {
   const l = 20;
   const secret = I.generateSecret(l);
   test("secret generation", () => {
-    expect(secret.length).toEqual(32);
+    assert.strictEqual(secret.length, 32);
   });
 
   const token = I.generateTOTP(secret);
 
   test("verify token", () => {
-    expect(I.verifyTOTP(token, secret)).toEqual(true);
+    assert.strictEqual(I.verifyTOTP(token, secret), true);
   });
 });
 
 test("to QR string", () => {
   const s =
     "otpauth://totp/myname?secret=asecret&algorithm=SHA256&digits=6&period=15";
-  expect(I.toQRString("myname", "asecret")).toEqual(s);
+  assert.strictEqual(I.toQRString("myname", "asecret"), s);
 });
 
 //this is a test to see if the integration actually wors with the google auth
@@ -30,6 +33,5 @@ test("manual testing", () => {
   console.log(I.toQRString("test", secret));
   const t = 764975;
 
-  expect(I.verifyTOTP(t, secret)).toEqual(true);
-});
-*/
+  assert.strictEqual(I.verifyTOTP(t, secret), true);
+});*/

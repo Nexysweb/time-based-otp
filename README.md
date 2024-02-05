@@ -6,8 +6,8 @@ see also https://github.com/enquirer/enquirer/pull/186
 
 [![npm version](https://badge.fury.io/js/%40nexys%2Ftimebasedotp.svg)](https://www.npmjs.com/package/@nexys/timebasedotp)
 [![npm version](https://img.shields.io/npm/v/@nexys/timebasedotp.svg)](https://www.npmjs.com/package/@nexys/timebasedotp)
-[![TavisCI](https://travis-ci.com/Nexysweb/time-based-otp.svg?branch=master)](https://travis-ci.com/Nexysweb/time-based-otp)
-![Publish](https://github.com/Nexysweb/time-based-otp/workflows/Publish/badge.svg)
+[![test](https://github.com/Nexysweb/time-based-otp/actions/workflows/test.yml/badge.svg)](https://github.com/Nexysweb/time-based-otp/actions/workflows/test.yml)
+[![Publish](https://github.com/Nexysweb/time-based-otp/actions/workflows/publish.yml/badge.svg)](https://github.com/Nexysweb/time-based-otp/actions/workflows/publish.yml)
 
 #### Usage
 
